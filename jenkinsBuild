@@ -6,18 +6,23 @@ pipeline {
     }
 
     stages {
-        stage('Create Plugin List') { 
+        stage('clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        stage('Create Plugin List') {
             steps {
                 sh (script: "python PluginFileGenerator.py \"${params.pluginNames}\"")
             }
         }
-        stage('Get Plugins') { 
+        stage('Get Plugins') {
             steps {
                 sh "mkdir plugins"
                 sh (script: "./batch-install-jenkins-plugins.sh -d plugins -p plugins.txt")
             }
         }
-        stage('Archive Plugins') { 
+        stage('Archive Plugins') {
             steps {
                 zip zipFile: 'plugins.zip', archive: true, dir: 'plugins/'
             }
