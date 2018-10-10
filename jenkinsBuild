@@ -6,11 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('clean Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('Create Plugin List') {
             steps {
                 sh (script: "python PluginFileGenerator.py \"${params.pluginNames}\"")
@@ -26,6 +21,11 @@ pipeline {
             steps {
                 zip zipFile: 'plugins.zip', archive: true, dir: 'plugins/'
             }
+        }
+    }
+    post { 
+        always { 
+            cleanWs()
         }
     }
 }
