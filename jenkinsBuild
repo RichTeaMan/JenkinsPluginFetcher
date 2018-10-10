@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Create Plugin List') { 
             steps {
-                sh (script: 'python PluginFileGenerator.py "${params.plugin-names}"')
+                sh (script: "python PluginFileGenerator.py \"${params.plugin-names}\"")
             }
         }
         stage('Get Plugins') { 
