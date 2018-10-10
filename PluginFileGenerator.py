@@ -5,7 +5,7 @@ import sys
 def main(argv):
     splitArgs = [x.strip() for x in argv[0].split(',')]
 
-    with open('plugin.txt', 'w') as the_file:
+    with open('plugins.txt', 'w') as the_file:
         for line in splitArgs:
             the_file.write(line + '\n')
     

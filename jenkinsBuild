@@ -13,6 +13,7 @@ pipeline {
         }
         stage('Get Plugins') { 
             steps {
+                sh "mkdir plugins"
                 sh (script: "./batch-install-jenkins-plugins.sh -d plugins -p plugins.txt")
             }
         }
