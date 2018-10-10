@@ -2,13 +2,13 @@ pipeline {
     agent { label "linux" }
 
     parameters {
-        string(name: 'plugin-names', description: 'Plugins to download, seperated with a comma.')
+        string(name: 'pluginNames', description: 'Plugins to download, seperated with a comma.')
     }
 
     stages {
         stage('Create Plugin List') { 
             steps {
-                sh (script: "python PluginFileGenerator.py \"${params.plugin-names}\"")
+                sh (script: "python PluginFileGenerator.py \"${params.pluginNames}\"")
             }
         }
         stage('Get Plugins') { 
