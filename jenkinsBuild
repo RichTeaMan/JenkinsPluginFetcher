@@ -1,0 +1,25 @@
+pipeline {
+    agent { label "linux" }
+
+    parameters {
+        string(name: 'plugin-names', description: 'Plugins to download, seperated with a comma.')
+    }
+
+    stages {
+        stage('Create Plugin List') { 
+            steps {
+                sh (script: 'python PluginFileGenerator.py "${params.plugin-names}"')
+            }
+        }
+        stage('Get Plugins') { 
+            steps {
+                sh (script: "./batch-install-jenkins-plugins.sh -d plugins -p plugins.txt")
+            }
+        }
+        stage('Archive Plugins') { 
+            steps {
+                zip zipFile: 'plugins.zip', archive: true, dir: 'plugins/'
+            }
+        }
+    }
+}
